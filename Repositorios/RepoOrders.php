@@ -33,57 +33,70 @@ class RepoOrders implements RepoCrud{
         // Verificar que el pedido existe
         $existingOrder = $this->getById($id);
         if (!$existingOrder) {
-            echo "Pedido no encontrado";
+            error_log("Pedido no encontrado: " . $id);
             return false;
         }
     
         // Verificar que el usuario existe
         $user = $this->repoUsers->getById($order->getUserID());
         if (!$user) {
-            echo "Usuario no encontrado";
+            error_log("Usuario no encontrado: " . $order->getUserID());
             return false;
-        }
+        }    
+            // Actualizar el pedido en la base de datos
+            $stmt = $this->conexion->prepare("UPDATE Orders SET datetime = :datetime, state = :state, 
+                    totalPrice = :totalPrice, UsersidUsers = :userID 
+                WHERE idOrder = :id
+            ");
+            
+            $result = $stmt->execute([
+                "id" => $id,
+                "datetime" => $order->getDatetime(),
+                "state" => $order->getState(),
+                "totalPrice" => $order->getTotalPrice(),
+                "userID" => $order->getUserID()
+            ]);
     
-        // Verificar que la dirección pertenece al usuario
-        $addressData = json_decode($order->getAddressJson(), true);
-        $userAddresses = $this->repoDirec->getAddressesByUserId($order->getUserID());
-        $validAddress = false;
-        foreach ($userAddresses as $address) {
-            if ($address->getId() == $addressData['id']) {
-                $validAddress = true;
-                break;
+            if (!$result) {
+                throw new Exception("Error al actualizar el pedido principal");
             }
-        }
-        if (!$validAddress) {
-            echo "La dirección no pertenece al usuario";
-            return false;
-        }
     
-        // Actualizar el pedido en la base de datos
-        $stmt = $this->conexion->prepare("UPDATE Orders SET datetime = :datetime, state = :state, 
-                totalPrice = :totalPrice, 
-                userID = :userID, 
-                addressJson = :addressJson, 
-                orderLinesJson = :orderLinesJson 
-            WHERE idOrder = :id
-        ");
-        
-        $result = $stmt->execute([
-            "id" => $id,
-            "datetime" => $order->getDatetime(),
-            "state" => $order->getState(),
-            "totalPrice" => $order->getTotalPrice(),
-            "userID" => $order->getUserID(),
-            "addressJson" => $order->getAddressJson(),
-            "orderLinesJson" => $order->getOrderLinesJson()
-        ]);
+            // Primero, eliminar las relaciones en orderline_has_kebab
+            $stmt = $this->conexion->prepare("DELETE FROM orderline_has_kebab WHERE OrderLine_orderLineID IN (SELECT orderLineID FROM OrderLine WHERE orderID = :orderId)");
+            $stmt->execute(["orderId" => $id]);
     
-        if ($result) {
+            // Ahora sí, eliminar las líneas de pedido existentes
+            $stmt = $this->conexion->prepare("DELETE FROM OrderLine WHERE orderID = :orderId");
+            $stmt->execute(["orderId" => $id]);
+    
+            // Insertar las nuevas líneas de pedido
+            foreach ($order->getOrderLines() as $line) {
+                $stmt = $this->conexion->prepare("INSERT INTO OrderLine (orderID, json, quantity, price) 
+                    VALUES (:orderId, :json, :quantity, :price)");
+                $stmt->execute([
+                    "orderId" => $id,
+                    "json" => json_encode($line->getKebabs()),
+                    "quantity" => $line->getQuantity(),
+                    "price" => $line->getPrice()
+                ]);
+    
+                $lineId = $this->conexion->lastInsertId();
+    
+                // Actualizar la tabla de relación orderline_has_kebab
+                foreach ($line->getKebabs() as $kebab) {
+                    if ($kebab->getIdKebab() !== null) { // Solo para kebabs no personalizados
+                        $stmt = $this->conexion->prepare("INSERT INTO orderline_has_kebab (OrderLine_orderLineID, Kebab_idKebab) 
+                            VALUES (:lineId, :kebabId)");
+                        $stmt->execute([
+                            "lineId" => $lineId,
+                            "kebabId" => $kebab->getIdKebab()
+                        ]);
+                    }
+                }
+            }
+    
+            // Si todo ha ido bien, confirmar la transacción
             return $order;
-        } else {
-            echo "Error al actualizar el pedido";
-            return false;
-        }
     }
 
     public function delete($id) {
@@ -113,22 +126,136 @@ class RepoOrders implements RepoCrud{
         
         if ($stmt->rowCount() > 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $order = new Order($row['idOrder'],$row['datetime'],$row['state'],$row['totalPrice'],$row['userID'],$row['addressJson'],$row['orderLinesJson']);
+            $order = new Order($row['idOrder'], $row['datetime'], $row['State'], $row['totalPrice'], $row['UsersidUsers']);
+            
+            // Obtener las líneas de pedido asociadas
+            $stmtLines = $this->conexion->prepare("SELECT * FROM OrderLine WHERE orderID = :orderId");
+            $stmtLines->execute(["orderId" => $id]);
+            
+            while ($lineRow = $stmtLines->fetch(PDO::FETCH_ASSOC)) {
+                $orderLine = new OrderLine(
+                    $lineRow['orderLineID'],
+                    $lineRow['json'],
+                    $lineRow['quantity'],
+                    $lineRow['price'],
+                    $lineRow['orderID']
+                );
+                
+                // Procesar kebabs estándar
+                $stmtKebab = $this->conexion->prepare("SELECT k.* FROM orderline_has_kebab olk JOIN Kebab k ON olk.Kebab_idKebab = k.idKebab WHERE olk.OrderLine_orderlineID = :orderLineID");
+                $stmtKebab->execute(["orderLineID" => $lineRow['orderLineID']]);
+                
+                while ($kebabRow = $stmtKebab->fetch(PDO::FETCH_ASSOC)) {
+                    $kebab = new Kebab($kebabRow['idKebab'], $kebabRow['name'], $kebabRow['basePrice'], $kebabRow['photo']);
+                    $orderLine->addKebab($kebab);
+                }
+                
+                // Procesar kebabs personalizados del JSON
+                $jsonData = json_decode($lineRow['json'], true);
+                if (is_array($jsonData)) {
+                    foreach ($jsonData as $kebabData) {
+                        if (isset($kebabData['name']) && $kebabData['name'] === 'Kebab Personalizado') {
+                            $customKebab = new Kebab(
+                                null, // ID null para kebabs personalizados
+                                $kebabData['name'],
+                                0, // El precio base se calculará sumando los precios de los ingredientes
+                                '' // No hay foto para kebabs personalizados
+                            );
+
+                            // Añadir ingredientes al kebab personalizado
+                            if (isset($kebabData['ingredients']) && is_array($kebabData['ingredients'])) {
+                                $totalPrice = 0;
+                                foreach ($kebabData['ingredients'] as $ingredientData) {
+                                    $ingredient = new Ingredient(
+                                        $ingredientData['name'],
+                                        $ingredientData['price']
+                                    );
+                                    $customKebab->addIngredient($ingredient);
+                                    $totalPrice += $ingredientData['price'];
+                                }
+                                $customKebab->setBasePrice($totalPrice);
+                            }
+
+                            $orderLine->addKebab($customKebab);
+                        }
+                    }
+                }
+
+                $order->addOrderLine($orderLine);
+            }
             
             return $order;
         } else {
             return null;
         }
     }
-
+    
     public function getAll() {
-        // Implementación del método getAll
         $stmt = $this->conexion->prepare("SELECT * FROM Orders");
         $stmt->execute();
         
         $orders = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $order = new Order($row['idOrder'],$row['datetime'],$row['state'],$row['totalPrice'],$row['userID'],$row['addressJson'],$row['orderLinesJson']);
+            $order = new Order($row['idOrder'], $row['datetime'], $row['State'], $row['totalPrice'], $row['UsersidUsers']);
+            
+            // Obtener las líneas de pedido asociadas
+            $stmtLines = $this->conexion->prepare("SELECT * FROM OrderLine WHERE orderID = :orderId");
+            $stmtLines->execute(["orderId" => $row['idOrder']]);
+            
+            while ($lineRow = $stmtLines->fetch(PDO::FETCH_ASSOC)) {
+                $orderLine = new OrderLine(
+                    $lineRow['orderLineID'],
+                    $lineRow['json'],
+                    $lineRow['quantity'],
+                    $lineRow['price'],
+                    $lineRow['orderID']
+                );
+                
+                // Procesar kebabs estándar
+                $stmtKebab = $this->conexion->prepare("SELECT k.* FROM orderline_has_kebab olk JOIN Kebab k ON olk.Kebab_idKebab = k.idKebab WHERE olk.OrderLine_orderlineID = :orderLineID");
+                $stmtKebab->execute(["orderLineID" => $lineRow['orderLineID']]);
+                
+                while ($kebabRow = $stmtKebab->fetch(PDO::FETCH_ASSOC)) {
+                    $kebab = new Kebab($kebabRow['idKebab'], $kebabRow['name'], $kebabRow['basePrice'], $kebabRow['photo']);
+                    $orderLine->addKebab($kebab);
+                }
+                
+                // Procesar kebabs personalizados del JSON
+                                // Procesar kebabs personalizados del JSON
+                // Procesar kebabs personalizados del JSON
+                $jsonData = json_decode($lineRow['json'], true);
+                if (is_array($jsonData)) {
+                    foreach ($jsonData as $kebabData) {
+                        if (isset($kebabData['name']) && $kebabData['name'] === 'Kebab Personalizado') {
+                            $customKebab = new Kebab(
+                                null, // ID null para kebabs personalizados
+                                $kebabData['name'],
+                                0, // El precio base se calculará sumando los precios de los ingredientes
+                                '' // No hay foto para kebabs personalizados
+                            );
+
+                            // Añadir ingredientes al kebab personalizado
+                            if (isset($kebabData['ingredients']) && is_array($kebabData['ingredients'])) {
+                                $totalPrice = 0;
+                                foreach ($kebabData['ingredients'] as $ingredientData) {
+                                    $ingredient = new Ingredient(
+                                        $ingredientData['name'],
+                                        $ingredientData['price']
+                                    );
+                                    $customKebab->addIngredient($ingredient);
+                                    $totalPrice += $ingredientData['price'];
+                                }
+                                $customKebab->setBasePrice($totalPrice);
+                            }
+
+                            $orderLine->addKebab($customKebab);
+                        }
+                    }
+                }
+
+                $order->addOrderLine($orderLine);
+            }
+            
             $orders[] = $order;
         }
         

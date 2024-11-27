@@ -73,6 +73,13 @@ if (strpos($request_uri, '/kebab-detail/') === 0) {
         $controller->index();
         break;
 
+    case '/dashboard/see-orders':
+        $controller = new SeeOrdersController();
+        $controller->index();
+        break;
+
+    case '/admin-panel':
+
     default:
         // Manejo de 404 Not Found
         header("HTTP/1.0 404 Not Found");

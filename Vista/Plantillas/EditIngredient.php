@@ -36,13 +36,13 @@
 
 <?php $this->start('nav2')?>
     <div class="secondary-nav">
-        <a href="#" class="secondary-link">Añadir Kebab de la Casa</a>
-        <a href="#" class="secondary-link">Editar Kebab de la Casa</a>
-        <a href="#" class="secondary-link">Eliminar Kebab de la Casa</a>
-        <a href="#" class="secondary-link">Añadir Ingrediente</a>
-        <a href="#" class="secondary-link">Editar Ingrediente</a>
-        <a href="#" class="secondary-link">Eliminar Ingrediente</a>
-        <a href="#" class="secondary-link">Ver Pedidos</a>        
+        <a href="/dashboard/add-kebab" class="secondary-link">Añadir Kebab de la Casa</a>
+        <a href="/dashboard/edit-kebab" class="secondary-link">Editar Kebab de la Casa</a>
+        <a href="/dashboard/delete-kebab" class="secondary-link">Eliminar Kebab de la Casa</a>
+        <a href="/dashboard/add-ingredient" class="secondary-link">Añadir Ingrediente</a>
+        <a href="/dashboard/edit-ingredient" class="secondary-link">Editar Ingrediente</a>
+        <a href="/dashboard/delete-ingredient" class="secondary-link">Eliminar Ingrediente</a>
+        <a href="/dashboard/see-orders" class="secondary-link">Ver Pedidos</a>        
     </div>
 <?php $this->stop()?>
 

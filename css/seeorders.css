@@ -1,0 +1,399 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Inter;
+    background-color: #e7e2d6;
+    height: 100%;
+}
+
+.container {
+    padding: 0;
+    min-height: 83vh; /* Hace que el contenedor ocupe al menos toda la altura de la ventana */
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5vh 3.75vh;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.logo-zona {
+    color: #fff;
+}
+
+.logo-kebab {
+    color: #00ff00;
+}
+
+.nav a {
+    color: #fff;
+    margin: 0 1.875vh;
+    text-decoration: none;
+    font-size: 2vh;
+}
+
+.nav a:hover {
+    color: #00ff00;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1.875vh;
+    padding: 0.625vh 1.25vh;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 0.625vh;
+    font-size: 2vh;
+    background: none;
+    color: #000;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    color: #00ff00;
+    margin-left: 2.5vh;
+    font-size: 2.5vh;
+    text-decoration: none;
+}
+
+.icons img {
+    width: 3.875vh;
+    height: auto;
+    vertical-align: middle;
+}
+
+.search-container button img {
+    width: 5vh;
+    height: auto;
+}
+
+.icons a:hover {
+    color: #fff;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 3.125vh;
+    height: 0.375vh;
+    background-color: #333;
+    margin: 0.625vh 0;
+    transition: 0.4s;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 1vh 2vh rgba(0,0,0,0.1);
+    padding: 1.25vh;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 0.625vh 1.25vh;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.secondary-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+    padding: 2.5vh 0;
+    border-top-left-radius: 0.5vh;
+    border-top-right-radius: 0.5vh;
+    position: relative;
+}
+
+.secondary-nav a {
+    text-decoration: none;
+}
+
+.secondary-link {
+    color: #fff;
+    margin: 0 2.5vh;
+    text-decoration: none;
+    font-size: 2.25vh;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.secondary-link:hover,
+.secondary-link.active {
+    color: #00ff00;
+}
+
+.secondary-link::after {
+    content: "";
+    position: absolute;
+    bottom: -0.625vh;
+    left: 0;
+    right: 0;
+    height: 0.25vh;
+    background-color: #00ff00;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.secondary-link:hover::after,
+.secondary-link.active::after {
+    transform: scaleX(1);
+}
+
+.sidebar {
+    width: 31.25vh;
+    flex-shrink: 0;
+    background-color: #d9d1c4;
+    padding: 2.5vh;
+    color: #333;
+}
+
+.sidebar h2 {
+    font-size: 2.5vh;
+    margin-bottom: 1.25vh;
+}
+
+.sidebar p {
+    font-size: 1.75vh;
+    color: #555;
+}
+
+.menu-item {
+    margin-top: 2.5vh;
+    padding: 1.25vh;
+    background-color: #fff;
+    border-radius: 1vh;
+    box-shadow: 0 0.25vh 0.5vh rgba(0, 0, 0, 0.1);
+}
+
+.menu-item.selected {
+    border: 0.25vh solid #000;
+}
+
+.menu-item i.icon {
+    font-size: 3vh;
+    margin-right: 1.25vh;
+}
+
+.menu-item span {
+    font-weight: bold;
+    display: block;
+}
+
+.menu-item p {
+    font-size: 1.5vh;
+    color: #666;
+}
+
+.order-state-buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.state-button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.state-button:hover {
+    opacity: 0.8;
+}
+
+.state-button[data-state="pendiente"] { background-color: #ffd700; }
+.state-button[data-state="en_preparacion"] { background-color: #ff9900; }
+.state-button[data-state="listo"] { background-color: #00ff00; }
+.state-button[data-state="entregado"] { background-color: #0000ff; color: white; }
+
+.orders {
+    width: 90%; /* Mantiene el 90% del ancho disponible */
+    max-width: none;
+    margin: 50px 5%;
+    padding: 30px;
+    background-color: #f9f7f5;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.orders h1 {
+    text-align: left;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.order-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-card p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.order-card ul {
+    margin: 10px 0;
+    padding-left: 20px;
+    color: #333;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn.preparation {
+    background-color: #ff6f3c;
+}
+
+.btn.sent {
+    background-color: #17a2b8;
+}
+
+.btn.completed {
+    background-color: #28a745;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.total-price {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 5.93vh 0;
+    font-family: Inter;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 177.78vh;
+    margin: 0 auto;
+    padding: 0 2.96vh;
+}
+
+.footer-logo {
+    font-size: 3.56vh;
+    font-weight: bold;
+}
+
+.footer-logo-zona {
+    color: white;
+}
+
+.footer-logo-kebab {
+    color: #00ff00;
+}
+
+.footer-logo p {
+    font-size: 2.07vh;
+    color: white;
+    width: 59.26vh;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links h3 {
+    margin-bottom: 2.22vh;
+    font-size: 2.67vh;
+    color: white;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 1.48vh;
+    font-size: 2.07vh;
+}
+
+.footer-links a:hover {
+    color: #00ff00;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 4.44vh;
+    padding-top: 2.96vh;
+    border-top: 0.15vh solid #ddd;
+    font-size: 1.78vh;
+}

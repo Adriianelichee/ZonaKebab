@@ -6,6 +6,7 @@ class Order {
     private $state;
     private $totalPrice;
     private $userID;
+    private $orderLines; 
 
     public function __construct($idOrder, $datetime, $state, $totalPrice, $userID) {
         $this->idOrder = $idOrder;
@@ -13,9 +14,19 @@ class Order {
         $this->state = $state;
         $this->totalPrice = $totalPrice;
         $this->userID = $userID;
+        $this->orderLines = [];
     }
 
     //GETTERS AND SETTERS
+
+    public function addOrderLine($orderLine) {
+        $this->orderLines[] = $orderLine;
+    }
+
+    public function getOrderLines() {
+        return $this->orderLines;
+    }
+    
     public function getIdOrder() {
         return $this->idOrder;
     }

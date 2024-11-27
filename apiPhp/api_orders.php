@@ -125,32 +125,73 @@ switch($method) {
             }
             break;
 
-    case 'PUT':
-        if ($id) {
-            $data = json_decode(file_get_contents("php://input"), true);
-            $existingOrder = $repoOrders->getById($id);
+            case 'PUT':
+                error_log("Entrando en el caso PUT");
+                $data = json_decode(file_get_contents("php://input"), true);
+                error_log("Datos recibidos: " . print_r($data, true));
             
-            if ($existingOrder) {
-                if (isset($data['state'])) {
-                    $existingOrder->setState($data['state']);
-                }
-                
-                $updatedOrder = $repoOrders->update($id, $existingOrder);
-                if ($updatedOrder) {
-                    echo json_encode($updatedOrder);
+                if (isset($data['action']) && $data['action'] === 'updateState' && 
+                    isset($data['orderId']) && isset($data['newState'])) {
+                    
+                    error_log("Actualizando estado del pedido");
+                    $orderId = $data['orderId'];
+                    $newState = $data['newState'];
+                    
+                    $existingOrder = $repoOrders->getById($orderId);
+                    
+                    if ($existingOrder) {
+                        error_log("Pedido encontrado, actualizando estado");
+                        $existingOrder->setState($newState);
+                        
+                        $updatedOrder = $repoOrders->update($orderId, $existingOrder);
+                        if ($updatedOrder) {
+                            error_log("Estado actualizado con éxito");
+                            echo json_encode([
+                                "success" => true,
+                                "message" => "Estado del pedido actualizado con éxito"
+                            ]);
+                        } else {
+                            error_log("Error al actualizar el estado");
+                            echo json_encode([
+                                "success" => false,
+                                "message" => "Error al actualizar el estado del pedido"
+                            ]);
+                        }
+                    } else {
+                        error_log("Pedido no encontrado");
+                        echo json_encode([
+                            "success" => false,
+                            "message" => "Pedido no encontrado"
+                        ]);
+                    }
                 } else {
-                    http_response_code(500);
-                    echo json_encode(["message" => "Error al actualizar el pedido"]);
+                    // Mantener el código existente para otras actualizaciones
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $existingOrder = $repoOrders->getById($id);
+                        
+                        if ($existingOrder) {
+                            if (isset($data['state'])) {
+                                $existingOrder->setState($data['state']);
+                            }
+                            
+                            $updatedOrder = $repoOrders->update($id, $existingOrder);
+                            if ($updatedOrder) {
+                                echo json_encode($updatedOrder);
+                            } else {
+                                http_response_code(500);
+                                echo json_encode(["message" => "Error al actualizar el pedido"]);
+                            }
+                        } else {
+                            http_response_code(404);
+                            echo json_encode(["message" => "Pedido no encontrado"]);
+                        }
+                    } else {
+                        http_response_code(400);
+                        echo json_encode(["message" => "ID de pedido no proporcionado"]);
+                    }
                 }
-            } else {
-                http_response_code(404);
-                echo json_encode(["message" => "Pedido no encontrado"]);
-            }
-        } else {
-            http_response_code(400);
-            echo json_encode(["message" => "ID de pedido no proporcionado"]);
-        }
-        break;
+                break;
 
     case 'DELETE':
         if ($id) {

@@ -1,4 +1,5 @@
-<?php $this->layout('EditKebabLayout'); ?>
+<?php $this->layout('SeeOrdersLayout'); ?>
+
 
 <?php $this->start('header') ?>
     <header class="header">
@@ -68,70 +69,53 @@
     </aside>
 <?php $this->stop()?>
 
-<?php $this->start('searchKebab')?>
-    <div id="kebabSearchOverlay" class="overlay">
-        <div class="overlay-content">
-            <h2>Buscar Kebab para Editar</h2>
-            <div class="search-kebab-container">
-                <input type="text" id="searchKebabInput" placeholder="Introduce el nombre del kebab">
-                <button id="searchKebabButton"><img src="/img/search.png" alt="Buscar"></button>
+<?php $this->start('body') ?>
+<section class="orders">
+    <h1>Ver pedidos</h1>
+    <?php foreach ($orders as $order) : ?>
+        <div class="order-card">
+            <p><strong>ID del Pedido:</strong> <?= htmlspecialchars($order->getIdOrder()) ?></p>
+            <p><strong>Fecha y hora:</strong> <?= htmlspecialchars($order->getDatetime()) ?></p>
+            <p><strong>Estado:</strong> <?= htmlspecialchars($order->getState()) ?></p>
+            
+            <!-- Botones para cambiar el estado -->
+            <div class="order-state-buttons">
+                <button class="state-button" data-order-id="<?= $order->getIdOrder() ?>" data-state="pendiente">Pendiente</button>
+                <button class="state-button" data-order-id="<?= $order->getIdOrder() ?>" data-state="en_preparacion">En Preparación</button>
+                <button class="state-button" data-order-id="<?= $order->getIdOrder() ?>" data-state="listo">Listo</button>
+                <button class="state-button" data-order-id="<?= $order->getIdOrder() ?>" data-state="entregado">Entregado</button>
             </div>
-            <div id="kebabList" class="kebab-list-all">
-                <!-- Aquí se mostrarán los kebabs -->
-            </div>
-            <a href="/add-kebab" class="close-button">Cerrar</a>
-        </div>
-    </div>
-<?php $this->stop()?>
 
+            <p><strong>Precio total:</strong> <?= htmlspecialchars($order->getTotalPrice()) ?> €</p>
+            <p><strong>ID de Usuario:</strong> <?= htmlspecialchars($order->getUserID()) ?></p>
 
-
-<?php $this->start('main-content')?>
-        <section class="main-content">
-            <h1>Editar Kebab de la Casa</h1>
-
-            <form class="kebab-form" id="addKebabForm" action="" method="post" enctype="multipart/form-data">
-                <label for="kebab-title">Edita el título del Kebab</label>
-                <input type="text" id="kebab-title" name="kebab-title" placeholder="Kebab Mixto">
-
-                <label for="kebab-photo">Agrega la foto del kebab</label>
-                <div class="photo-upload">
-                    <input type="file" id="kebab-photo" name="kebab-photo" accept="image/*">
-                    <div class="photo-preview">
-                        <img id="photo-preview-image" src="#" alt="Vista previa de la imagen" style="display: none; max-width: 200px; max-height: 200px;">
-                        <span id="photo-placeholder">Agregar una Foto</span>
-                    </div>
+            <h3>Líneas de pedido:</h3>
+            <?php foreach ($order->getOrderLines() as $orderLine) : ?>
+                <div class="order-line">
+                    <p><strong>Cantidad:</strong> <?= htmlspecialchars($orderLine->getQuantity()) ?></p>
+                    <h4>Kebabs:</h4>
+                    <?php foreach ($orderLine->getKebabs() as $kebab) : ?>
+                        <div class="kebab-details">
+                            <p><strong>Nombre:</strong> <?= htmlspecialchars($kebab->getName()) ?></p>
+                            <p><strong>Precio base:</strong> <?= htmlspecialchars($kebab->getBasePrice()) ?> €</p>
+                            <?php if ($kebab->getIngredients()) : ?>
+                                <h5>Ingredientes:</h5>
+                                <ul class="ingredients-list">
+                                    <?php foreach ($kebab->getIngredients() as $ingredient) : ?>
+                                        <li><?= htmlspecialchars($ingredient->getName()) ?> (<?= htmlspecialchars($ingredient->getPrice()) ?> €)</li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php else : ?>
+                                <p>No hay ingredientes especificados para este kebab.</p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-
-
-
-                <label for="kebab-base">Elige una base del Kebab a crear</label>
-                <select id="kebab-base" name="kebab-base">
-                    <option>Kebab Mixto sin queso</option>
-                    <option>Kebab Vegetariano</option>
-                </select>
-
-                <label for="kebab-price">Introduce el Precio base del Kebab</label>
-                <input type="text" id="kebab-price" name="kebab-price" placeholder="10€">
-
-                <button type="submit" class="add-button">Añadir</button>
-            </form>
-        </section>
-<?php $this->stop()?>
-
-<?php $this->start('ingredients')?>
-    <section class="ingredients">
-        <h2>Ingredientes Disponibles</h2>
-        <div id="available-ingredients"></div>
-    </section>
-
-    <section class="ingredients-added">
-        <h2>Ingredientes Añadidos</h2>
-        <div id="added-ingredients"></div>
-    </section>
-<?php $this->stop()?>
-
-
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</section>
+<?php $this->stop() ?>
 
 <?php $this->start('footer') ?>
 <footer class="footer">
@@ -156,19 +140,18 @@
 <?php $this->stop() ?>
 
 <?php $this->start('scripts') ?>
-<script src="../../apiJS/api_ingredienteKebab.js"></script>
-<script src="../../apiJS/api_Kebab.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+
     // Manejo de la navegación secundaria
     const links = document.querySelectorAll('.secondary-nav .secondary-link');
     let activeLink = null;
 
-    // Buscar el enlace "Eliminar Kebab de la Casa" y establecerlo como activo
-    const editKebabLink = document.querySelector('.secondary-nav .secondary-link:nth-child(2)');
-    if (editKebabLink) {
-        editKebabLink.classList.add('active');
-        activeLink = editKebabLink;
+    // Buscar el enlace "Añadir Ingrediente" y establecerlo como activo
+    const addIngredientLink = document.querySelector('.secondary-nav .secondary-link:nth-child(7)');
+    if (addIngredientLink) {
+        addIngredientLink.classList.add('active');
+        activeLink = addIngredientLink;
     }
 
     links.forEach(link => {
@@ -192,59 +175,9 @@ document.addEventListener('DOMContentLoaded', function() {
             activeLink = this;
         });
     });
-    const nav2 = document.querySelector('.secondary-nav');
-    if (nav2) {
-        nav2.addEventListener('mouseleave', function() {
-            if (!activeLink) {
-                links.forEach(link => link.classList.remove('active'));
-            }
-        });
-    }
 
-
-    const sidebarItem= document.querySelectorAll('.sidebar .menu-item');
-    let activeSidebarItem = document.querySelector('.sidebar.menu-item.selected');
-    
-    sidebarItem.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (activeSidebarItem) {
-                activeSidebarItem.classList.remove('selected');
-            }
-            this.classList.add('selected');
-            activeSidebarItem = this;
-        });
-    });
-
-    // Manejo del menú hamburguesa
-    const hamburger = document.querySelector('.hamburger-menu');
-    const nav = document.querySelector('.nav');
-
-    if (hamburger && nav) {
-        hamburger.addEventListener('click', function() {
-            nav.classList.toggle('active');
-        });
-    }
-
-    // Manejo del menú de usuario
-    const userIcon = document.querySelector('.user-icon');
-    const userDropdown = document.querySelector('.user-dropdown');
-
-    if (userIcon && userDropdown) {
-        userIcon.addEventListener('click', function(e) {  
-            e.preventDefault();
-            userDropdown.style.display = userDropdown.style.display === 'none' ? 'block' : 'none';
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!userIcon.contains(e.target) && !userDropdown.contains(e.target)) {  
-                userDropdown.style.display = 'none';
-            }
-        });
-    }
-
-    // Nuevo: Manejo de la carga de imágenes
-    const photoInput = document.getElementById('kebab-photo');
+    // Manejo de la carga de imágenes
+    const photoInput = document.getElementById('ingredient-photo');
     const photoPreviewImage = document.getElementById('photo-preview-image');
     const photoPlaceholder = document.getElementById('photo-placeholder');
 
@@ -268,7 +201,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
+    const stateButtons = document.querySelectorAll('.state-button');
+    stateButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = this.getAttribute('data-order-id');
+            const newState = this.getAttribute('data-state');
+            updateOrderState(orderId, newState);
+        });
+    });
+
+    function updateOrderState(orderId, newState) {
+    fetch('/apiPhp/api_orders.php', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            action: 'updateState',
+            orderId: orderId,
+            newState: newState
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Estado del pedido actualizado con éxito');
+            location.reload();
+        } else {
+            alert('Error al actualizar el estado del pedido: ' + (data.message || 'Error desconocido'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error al actualizar el estado del pedido: ' + error.message);
+    });
+}
 });
 </script>
 <?php $this->stop() ?>
