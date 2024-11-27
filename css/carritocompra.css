@@ -1,0 +1,470 @@
+/* Estilo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter;
+    background-color: #000;
+    color: #fff;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5vh 3.75vh;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.logo-zona {
+    color: #fff;
+}
+
+.logo-kebab {
+    color: #00ff00;
+}
+
+.nav a {
+    color: #fff;
+    margin: 0 1.875vh;
+    text-decoration: none;
+    font-size: 2vh;
+}
+
+.nav a:hover {
+    color: #00ff00;
+}
+
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1.875vh;
+    padding: 0.625vh 1.25vh;
+
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    border-radius: 1.875vh;
+    padding: 0.625vh 1.25vh;
+    background: none;
+    color: #000;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    color: #00ff00;
+    margin-left: 2.5vh;
+    font-size: 2.5vh;
+    text-decoration: none;
+}
+.icons img {
+    width: 3.875vh;
+    height: auto;
+    vertical-align: middle;
+}
+
+.search-container button img {
+    width: 5vh;
+    height: auto;
+}
+
+.icons a:hover {
+    color: #fff;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 3.125vh;
+    height: 0.375vh;
+    background-color: #333;
+    margin: 0.625vh 0;
+    transition: 0.4s;
+}
+
+/* Estilos para el menú de usuario */
+.user-menu {
+    position: relative;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    padding: 1.25vh;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 0.625vh 1.25vh;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Contenedor principal */
+.checkout-container {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 1.25vh;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2.5vh;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    color: #999;
+    font-size: 1.75vh;
+    margin-bottom: 2.5vh;
+}
+
+/* Contenido principal */
+.checkout-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 2.5vh;
+}
+
+/* Sección de formulario */
+.form-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.step {
+    background-color: #f7f7f7;
+    padding: 2.5vh;
+    border-radius: 1.25vh;
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+.step h2 {
+    color: black;
+    font-size: 2.25vh;
+    margin-bottom: 1.25vh;
+}
+
+.step p {
+    font-size: 1.75vh;
+    margin-bottom: 1.25vh;
+    color: black;
+
+}
+
+.step input, .step select, .step button {
+    width: 100%;
+    padding: 1.25vh;
+    margin-bottom: 1.25vh;
+    border: 1px solid #ddd;
+    border-radius: 0.625vh;
+    font-size: 1.75vh;
+}
+
+.step button {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.step button:hover {
+    background-color: #444;
+}
+
+/* Sección del carrito */
+.cart-section {
+    flex: 1;
+    background-color: #f7f7f7;
+    padding: 2.5vh;
+    border-radius: 1.25vh;
+    border: 1px solid #ddd;
+    width: 40%;
+}
+
+.cart-section h2 {
+    font-size: 2.25vh;
+    margin-bottom: 2.5vh;
+    color: black;
+}
+
+.cart-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 2.5vh;
+    padding: 1.25vh;
+    border-radius: 0.625vh;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.cart-item img {
+    width: 7.5vh;
+    height: 7.5vh;
+    border-radius: 0.625vh;
+    margin-right: 1.25vh;
+}
+
+.cart-item-details {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.25vh;
+}
+
+.cart-item-name {
+    flex-grow: 1;
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-item-quantity {
+    margin-right: 1.25vh;
+    color: #000;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    color: #000;
+}
+
+.cart-summary {
+    border-top: 1px solid #ddd;
+    padding-top: 1.25vh;
+    margin-top: 1.25vh;
+    font-size: 1.75vh;
+    color: black;
+
+}
+
+.cart-item-ingredients {
+    font-size: 1.5vh;
+    color: #666;
+    margin-left: 8.75vh;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.cart-item-ingredients li {
+    margin-bottom: 0.25vh;
+}
+
+.cart-item-ingredients:before {
+    content: "Ingredientes:";
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.secure-payment {
+    text-align: center;
+    margin-top: 2.5vh;
+    font-size: 1.75vh;
+    color: #555;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 1.75vh 0;
+    font-family: Inter;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 150vh;
+    padding: 0 2.5vh;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    font-size: 2.5vh;
+    font-weight: bold;
+}
+
+.footer-logo-zona {
+    color: white;
+}
+
+.footer-logo-kebab {
+    color: #00ff00;
+}
+
+.footer-logo p {
+    font-size: 1.625vh;
+    width: 50vh;
+    color: white;
+}
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links h3 {
+    margin-bottom: 1.875vh;
+    font-size: 2.25vh;
+    color: white;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 1.25vh;
+    font-size: 1.625vh;
+
+}
+
+.footer-links a:hover {
+    color: #00ff00;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3.75vh;
+    padding-top: 2.5vh;
+    font-size: 1.5vh;
+    border-top: 1px solid #ddd;
+}
+
+/* Existing CSS remains unchanged */
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 2vh;
+    }
+
+    .nav {
+        margin-top: 2vh;
+    }
+
+    .nav a {
+        margin: 0 1vh;
+        font-size: 1.8vh;
+    }
+
+    .search-container {
+        margin-top: 2vh;
+        width: 100%;
+    }
+
+    .icons {
+        margin-top: 2vh;
+    }
+
+    .checkout-content {
+        flex-direction: column;
+    }
+
+    .form-section, .cart-section {
+        width: 100%;
+    }
+
+    .step {
+        padding: 2vh;
+    }
+
+    .cart-item img {
+        width: 6vh;
+        height: 6vh;
+    }
+
+    .cart-item-ingredients {
+        margin-left: 0;
+        margin-top: 1vh;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-logo, .footer-links {
+        margin-bottom: 2vh;
+    }
+
+    .footer-logo p {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-links {
+        align-items: center;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        position: absolute;
+        top: 2vh;
+        right: 2vh;
+    }
+
+    .hamburger-menu span {
+        background-color: #fff;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .nav.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav.active a {
+        margin: 1vh 0;
+    }
+}

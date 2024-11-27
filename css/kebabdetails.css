@@ -1,0 +1,482 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter;
+    background-color: #000;
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.22vh 3.33vh;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 2.67vh;
+    font-weight: bold;
+}
+
+.logo-zona {
+    color: #fff;
+}
+
+.logo-kebab {
+    color: #00ff00;
+}
+
+.nav a {
+    color: #fff;
+    margin: 0 1.67vh;
+    text-decoration: none;
+    font-size: 1.78vh;
+}
+
+.nav a:hover {
+    color: #00ff00;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1.67vh;
+    padding: 0.56vh 1.11vh;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 0.56vh;
+    font-size: 1.78vh;
+    background: none;
+    color: #000;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 1.78vh;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    color: #00ff00;
+    margin-left: 2.22vh;
+    font-size: 2.22vh;
+    text-decoration: none;
+}
+
+.icons img {
+    width: 3.44vh;
+    height: auto;
+    vertical-align: middle;
+}
+
+.search-container button img {
+    width: 4.44vh;
+    height: auto;
+}
+
+.icons a:hover {
+    color: #fff;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 2.78vh;
+    height: 0.33vh;
+    background-color: #333;
+    margin: 0.56vh 0;
+    transition: 0.4s;
+}
+
+/* Estilos para el menú de usuario */
+.user-menu {
+    position: relative;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 0.89vh 1.78vh rgba(0,0,0,0.1);
+    padding: 1.11vh;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 0.56vh 1.11vh;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.product-container {
+    width: 100%;
+    background-color: #222;
+    border-radius: 1.11vh;
+    padding: 2.22vh;
+    box-shadow: 0 0.44vh 1.11vh rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 2.22vh;
+}
+
+.product-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2.22vh;
+}
+
+.product-image {
+    max-width: 13%;
+    height: auto;
+    border-radius: 1.11vh;
+    margin-bottom: 2.22vh;
+}
+
+.product-description {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #ccc;
+    max-width: 88.89vh;
+}
+
+.ingredients-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2.22vh 0;
+    gap: 2.22vh;
+}
+
+.ingredients, .ingredients-added {
+    background-color: #f4f0eb;
+    color: #333;
+    flex: 1;
+    padding: 2.22vh;
+    border-radius: 1.11vh;
+    box-shadow: 0 0.44vh 0.89vh rgba(0, 0, 0, 0.1);
+}
+
+.ingredients-added {
+    box-shadow: -0.44vh 0 0.89vh rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    font-size: 1.2em;
+    margin-bottom: 1.11vh;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    font-size: 1em;
+    margin-bottom: 1.11vh;
+    display: flex;
+    align-items: center;
+}
+
+li::before {
+    margin-right: 1.11vh;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.22vh;
+}
+
+.price {
+    font-size: 1.5em;
+    margin-left: 2.22vh;
+    font-weight: bold;
+}
+
+.add-to-cart {
+    background-color: #0f0;
+    color: #000;
+    border: none;
+    padding: 1.11vh 2.22vh;
+    font-size: 1em;
+    border-radius: 0.56vh;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 2.22vh;
+}
+
+.add-to-cart:hover {
+    background-color: #0c0;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 4.44vh 0;
+    font-family: Inter;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 133.33vh;
+    margin: 0 auto;
+    padding: 0 2.22vh;
+}
+
+.footer-logo {
+    font-size: 2.67vh;
+    font-weight: bold;
+}
+
+.footer-logo-zona {
+    color: white;
+}
+
+.footer-logo-kebab {
+    color: #00ff00;
+}
+
+.footer-logo p {
+    font-size: 1.56vh;
+    color: white;
+    width: 44.44vh;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links h3 {
+    margin-bottom: 1.67vh;
+    font-size: 2vh;
+    color: white;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 1.11vh;
+    font-size: 1.56vh;
+}
+
+.footer-links a:hover {
+    color: #00ff00;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3.33vh;
+    padding-top: 2.22vh;
+    border-top: 0.11vh solid #ddd;
+    font-size: 1.33vh;
+}
+
+/* Estilos para los contenedores de ingredientes */
+.ingredients-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.22vh;
+}
+
+#available-ingredients, #added-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.11vh;
+    padding: 1.67vh;
+    border: 0.11vh solid #ccc;
+    background-color: #f9f9f9;
+    min-height: 11.11vh; /* Asegura una altura mínima */
+}
+
+/* Estilos para los elementos de ingredientes */
+.ingredient-item {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 0.11vh solid #ddd;
+    padding: 0.56vh;
+    margin: 0.56vh;
+    cursor: move;
+    transition: all 0.3s ease;
+}
+
+.ingredient-item:hover {
+    box-shadow: 0 0.22vh 0.89vh rgba(0,0,0,0.15);
+}
+
+/* Estilos para las imágenes de los ingredientes */
+.ingredient-item img {
+    width: 5.56vh;
+    height: 5.56vh;
+    margin-right: 1.11vh;
+}
+
+/* Estilos para el nombre del ingrediente */
+.ingredient-item span {
+    flex-grow: 1;
+    font-size: 1.56vh;
+}
+
+/* Estilo para el elemento que se está arrastrando */
+.ingredient-item.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+
+.ingredient-item {
+    position: relative;
+}
+.allergens-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    gap: 5px;
+}
+.allergen-item img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+/* Responsive styles for mobile devices */
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 2vh;
+    }
+
+    .logo {
+        margin-bottom: 2vh;
+    }
+
+    .nav {
+        margin-bottom: 2vh;
+    }
+
+    .nav a {
+        margin: 0 1vh;
+        font-size: 1.5vh;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-bottom: 2vh;
+    }
+
+    .icons {
+        justify-content: center;
+    }
+
+    .product-container {
+        padding: 1.5vh;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .product-image {
+        max-width: 50%;
+    }
+
+    .product-description {
+        font-size: 0.9em;
+    }
+
+    .ingredients-container {
+        flex-direction: column;
+    }
+
+    .ingredients, .ingredients-added {
+        margin-bottom: 2vh;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-logo, .footer-links {
+        margin-bottom: 3vh;
+    }
+
+    .footer-logo p {
+        width: auto;
+        text-align: center;
+    }
+
+    .footer-links {
+        align-items: center;
+    }
+
+    /* Adjust ingredient containers for mobile */
+    #available-ingredients, #added-ingredients {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ingredient-item {
+        width: 90%;
+        justify-content: center;
+    }
+
+    .ingredient-item img {
+        width: 4vh;
+        height: 4vh;
+    }
+
+    .ingredient-item span {
+        font-size: 1.4vh;
+    }
+
+    /* Adjust the footer for mobile */
+    .add-to-cart, .price {
+        font-size: 1.2em;
+        margin: 1vh 0;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+}

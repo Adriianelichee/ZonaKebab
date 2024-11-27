@@ -1,0 +1,633 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Inter;
+    background-color: #e7e2d6;
+    height: 100%;
+}
+
+.container {
+    padding: 0;
+    min-height: 83vh; /* Hace que el contenedor ocupe al menos toda la altura de la ventana */
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5vh 3.75vh;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.logo-zona {
+    color: #fff;
+}
+
+.logo-kebab {
+    color: #00ff00;
+}
+
+.nav a {
+    color: #fff;
+    margin: 0 1.875vh;
+    text-decoration: none;
+    font-size: 2vh;
+}
+
+.nav a:hover {
+    color: #00ff00;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1.875vh;
+    padding: 0.625vh 1.25vh;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 0.625vh;
+    font-size: 2vh;
+    background: none;
+    color: #000;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    color: #00ff00;
+    margin-left: 2.5vh;
+    font-size: 2.5vh;
+    text-decoration: none;
+}
+
+.icons img {
+    width: 3.875vh;
+    height: auto;
+    vertical-align: middle;
+}
+
+.search-container button img {
+    width: 5vh;
+    height: auto;
+}
+
+.icons a:hover {
+    color: #fff;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 3.125vh;
+    height: 0.375vh;
+    background-color: #333;
+    margin: 0.625vh 0;
+    transition: 0.4s;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 1vh 2vh rgba(0,0,0,0.1);
+    padding: 1.25vh;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 0.625vh 1.25vh;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.secondary-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+    padding: 2.5vh 0;
+    border-top-left-radius: 0.5vh;
+    border-top-right-radius: 0.5vh;
+    position: relative;
+}
+
+.secondary-nav a {
+    text-decoration: none;
+}
+
+.secondary-link {
+    color: #fff;
+    margin: 0 2.5vh;
+    text-decoration: none;
+    font-size: 2.25vh;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.secondary-link:hover,
+.secondary-link.active {
+    color: #00ff00;
+}
+
+.secondary-link::after {
+    content: "";
+    position: absolute;
+    bottom: -0.625vh;
+    left: 0;
+    right: 0;
+    height: 0.25vh;
+    background-color: #00ff00;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.secondary-link:hover::after,
+.secondary-link.active::after {
+    transform: scaleX(1);
+}
+
+.sidebar {
+    width: 31.25vh;
+    flex-shrink: 0;
+    background-color: #d9d1c4;
+    padding: 2.5vh;
+    color: #333;
+}
+
+.sidebar h2 {
+    font-size: 2.5vh;
+    margin-bottom: 1.25vh;
+}
+
+.sidebar p {
+    font-size: 1.75vh;
+    color: #555;
+}
+
+.menu-item {
+    margin-top: 2.5vh;
+    padding: 1.25vh;
+    background-color: #fff;
+    border-radius: 1vh;
+    box-shadow: 0 0.25vh 0.5vh rgba(0, 0, 0, 0.1);
+}
+
+.menu-item.selected {
+    border: 0.25vh solid #000;
+}
+
+.menu-item i.icon {
+    font-size: 3vh;
+    margin-right: 1.25vh;
+}
+
+.menu-item span {
+    font-weight: bold;
+    display: block;
+}
+
+.menu-item p {
+    font-size: 1.5vh;
+    color: #666;
+}
+
+.main-content {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2.5vh;
+    overflow-y: auto;
+}
+
+.main-content > * {
+    flex: 1 1 100%;
+    margin: 1.25vh;
+}
+
+.main-content h1 {
+    font-size: 3vh;
+    margin-bottom: 0.625vh;
+    width: 100%;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    background-color: white;
+    padding: 2.5vh;
+    border-radius: 0.625vh;
+    width: 80%;
+    max-width: 75vh;
+}
+
+.search-ingredient-container {
+    display: flex;
+    margin-bottom: 1.875vh;
+}
+
+#searchIngredientInput {
+    flex-grow: 1;
+    padding: 1.25vh;
+    font-size: 2vh;
+    border: 0.125vh solid #ccc;
+    border-radius: 0.625vh 0 0 0.625vh;
+}
+
+#searchIngredientButton {
+    padding: 1.25vh;
+    background-color: #000;
+    border: none;
+    border-radius: 0 0.625vh 0.625vh 0;
+    cursor: pointer;
+}
+
+#searchIngredientButton img {
+    width: 2.5vh;
+    height: 2.5vh;
+}
+
+.ingredient-list-all {
+    max-height: 37.5vh;
+    overflow-y: auto;
+    margin-bottom: 1.875vh;
+}
+
+.ingredient-item {
+    padding: 1.25vh;
+    border-bottom: 0.125vh solid #ddd;
+    cursor: pointer;
+}
+
+.close-button {
+    display: inline-block;
+    padding: 1.25vh 2.5vh;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.625vh;
+}
+
+.close-button:hover {
+    background-color: #d32f2f;
+}
+
+.main-content {
+    padding: 2.5vh;
+}
+
+.main-content h1 {
+    font-size: 3vh;
+    margin-bottom: 2.5vh;
+}
+
+.ingredient-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.875vh;
+}
+
+.ingredient-form label {
+    font-weight: bold;
+}
+
+.ingredient-form input[type="text"],
+.ingredient-form input[type="number"] {
+    width: 100%;
+    padding: 1vh;
+    border: 0.125vh solid #ccc;
+    border-radius: 0.625vh;
+}
+
+.photo-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border: 0.125vh solid #ccc;
+    height: 25vh;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.photo-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#photo-placeholder {
+    font-size: 2vh;
+    color: #666;
+}
+
+.edit-button {
+    background-color: #000;
+    color: #fff;
+    padding: 1.25vh 2.5vh;
+    border: none;
+    border-radius: 0.625vh;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.edit-button:hover {
+    background-color: #555;
+}
+
+.allergens, .allergens-added {
+    flex: 1;
+    padding: 2.5vh;
+    background-color: #f4f4f4;
+    align-content: flex-start;
+}
+
+.allergens-added {
+    box-shadow: -0.5vh 0 1vh rgba(0, 0, 0, 0.1);
+}
+
+.allergens h2, .allergens-added h2 {
+    font-size: 2.5vh;
+    margin-bottom: 1.25vh;
+    width: 100%;
+}
+
+#available-allergens, .allergens-added {
+    min-height: 12.5vh;
+    padding: 1.25vh;
+    border: 0.125vh solid #ccc;
+}
+
+.allergens-item:hover {
+    background-color: #e0e0e0;
+}
+
+.allergens-item {
+    display: flex;
+    align-items: center;
+    background-color: beige;
+    border-radius: 1.25vh; 
+    box-shadow: 0 0.25vh 0.5vh rgba(0, 0, 0, 0.1); 
+    padding: 0.625vh; 
+    width: calc(33.33% - 1.25vh);
+    min-width: 25vh;
+    cursor: move;
+    margin-bottom: 1.25vh;
+}
+
+.allergens-item:hover {
+    background-color: grey;
+}
+
+.allergen-item img {
+    width: 3.75vh;
+    height: 3.75vh;
+    object-fit: cover;
+    margin-right: 1.25vh;
+}
+
+.allergens-item span {
+    flex: 1;
+    font-size: 1.75vh;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.allergens-item.dragging {
+    opacity: 0.5;
+}
+#available-allergens,
+#added-allergens {
+    min-height: 12.5vh;
+    padding: 1.25vh;
+    border: 0.125vh solid #ccc;
+    background-color: #f9f9f9;
+}
+
+#available-allergens:empty,
+#added-allergens:empty {
+    height: 12.5vh;
+}
+
+@media screen and (max-width: 768px) {
+    /* Header and Navigation */
+    .header {
+        flex-wrap: wrap;
+        padding: 2vh;
+    }
+
+    .logo {
+        flex-basis: 100%;
+        text-align: center;
+        margin-bottom: 2vh;
+    }
+
+    .nav {
+        display: none;
+        width: 100%;
+        order: 3;
+    }
+
+    .nav.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2vh 0;
+    }
+
+    .nav a {
+        margin: 1vh 0;
+        font-size: 2.5vh;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        order: 1;
+        margin-left: auto;
+    }
+
+    .search-container {
+        order: 4;
+        width: 100%;
+        margin-top: 2vh;
+    }
+
+    .search-container input[type="text"] {
+        width: 100%;
+    }
+
+    .icons {
+        order: 2;
+        justify-content: center;
+        width: 100%;
+        margin-top: 2vh;
+    }
+
+    /* Layout */
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        order: 2;
+    }
+
+    .main-content {
+        order: 1;
+        padding: 2vh;
+    }
+
+    /* Form elements */
+    .ingredient-form input[type="text"],
+    .ingredient-form input[type="number"] {
+        font-size: 2.5vh;
+        padding: 1.5vh;
+    }
+
+    .photo-upload {
+        height: 30vh;
+    }
+
+    .edit-button {
+        width: 100%;
+        padding: 2vh;
+        font-size: 2.5vh;
+    }
+
+    /* Allergens */
+    .allergens, .allergens-added {
+        width: 100%;
+        margin-bottom: 2vh;
+    }
+
+    .allergens-item {
+        width: calc(50% - 1vh);
+        min-width: auto;
+    }
+
+    /* Overlay */
+    .overlay-content {
+        width: 95%;
+        max-width: none;
+    }
+
+    /* Secondary Navigation */
+    .secondary-nav {
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 1vh 0;
+    }
+
+    .secondary-link {
+        margin: 1vh;
+        font-size: 2vh;
+    }
+
+    /* User Dropdown */
+    .user-dropdown {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background-color: #333;
+        box-shadow: 0 -0.5vh 1vh rgba(0,0,0,0.1);
+    }
+
+    .user-dropdown a {
+        color: #fff;
+        padding: 2vh;
+        font-size: 2.5vh;
+    }
+
+    /* General adjustments */
+    body {
+        font-size: 2.5vh;
+    }
+
+    h1 {
+        font-size: 3.5vh;
+    }
+
+    h2 {
+        font-size: 3vh;
+    }
+}

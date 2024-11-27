@@ -1,0 +1,411 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter;
+    background-color: beige;
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5vh 3.75vh;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.logo-zona {
+    color: #fff;
+}
+
+.logo-kebab {
+    color: #00ff00;
+}
+
+.nav a {
+    color: #fff;
+    margin: 0 1.875vh;
+    text-decoration: none;
+    font-size: 2vh;
+}
+
+.nav a:hover {
+    color: #00ff00;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1.875vh;
+    padding: 0.625vh 1.25vh;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 0.625vh;
+    font-size: 2vh;
+    background: none;
+    color: #000;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    color: #00ff00;
+    margin-left: 2.5vh;
+    font-size: 2.5vh;
+    text-decoration: none;
+}
+
+.icons img {
+    width: 3.875vh;
+    height: auto;
+    vertical-align: middle;
+}
+
+.search-container button img {
+    width: 5vh;
+    height: auto;
+}
+
+.icons a:hover {
+    color: #fff;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 3.125vh;
+    height: 0.375vh;
+    background-color: #333;
+    margin: 0.625vh 0;
+    transition: 0.4s;
+}
+
+/* Estilos para el menú de usuario */
+.user-menu {
+    position: relative;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 1vh 2vh rgba(0,0,0,0.1);
+    padding: 1.25vh;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 0.625vh 1.25vh;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.contact {
+    max-width: 112.5vh;
+    margin: 6.25vh auto;
+    padding: 2.5vh;
+    background-color: #fff;
+    border-radius: 1vh;
+    box-shadow: 0 0.5vh 0.75vh rgba(0, 0, 0, 0.1);
+}
+
+.contact h1 {
+    text-align: center;
+    font-size: 3vh;
+    margin-bottom: 2.5vh;
+    color: #333;
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5vh;
+}
+
+.map {
+    flex: 1;
+    min-width: 37.5vh;
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 37.5vh;
+    background-color: #fff;
+    border-radius: 1vh;
+    padding: 1.875vh;
+    color: #333;
+}
+
+.contact-info p {
+    margin: 1.25vh 0;
+}
+
+.contact-info a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1.25vh;
+    margin-top: 1.875vh;
+}
+
+.icon {
+    font-size: 3vh;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.icon.whatsapp {
+    color: #25d366;
+}
+
+.icon.tiktok {
+    color: #000;
+}
+
+.icon.instagram {
+    color: #e1306c;
+}
+
+.icon.facebook {
+    color: #1877f2;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 5vh 0;
+    font-family: Inter;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 150vh;
+    margin: 0 auto;
+    padding: 0 2.5vh;
+}
+
+.footer-logo {
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.footer-logo-zona {
+    color: white;
+}
+
+.footer-logo-kebab {
+    color: #00ff00;
+}
+
+.footer-logo p {
+    font-size: 1.75vh;
+    color: white;
+    width: 50vh;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links h3 {
+    margin-bottom: 1.875vh;
+    font-size: 2.25vh;
+    color: white;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 1.25vh;
+    font-size: 1.75vh;
+}
+
+.footer-links a:hover {
+    color: #00ff00;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3.75vh;
+    padding-top: 2.5vh;
+    border-top: 0.125vh solid #ddd;
+    font-size: 1.5vh;
+}/* Responsive design for mobile devices */
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 2vh;
+    }
+
+    .nav {
+        margin-top: 2vh;
+    }
+
+    .nav a {
+        margin: 0 1vh;
+        font-size: 1.8vh;
+    }
+
+    .search-container {
+        margin-top: 2vh;
+        width: 90%;
+    }
+
+    .icons {
+        margin-top: 2vh;
+    }
+
+    .contact {
+        padding: 2vh;
+        margin: 3vh auto;
+    }
+
+    .contact-container {
+        flex-direction: column;
+    }
+
+    .map, .contact-info {
+        min-width: 100%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-logo, .footer-links {
+        margin-bottom: 3vh;
+    }
+
+    .footer-logo p {
+        width: 100%;
+        margin-top: 1vh;
+    }
+
+    .footer-links {
+        width: 100%;
+    }
+
+    .footer-links h3 {
+        margin-bottom: 1vh;
+    }
+
+    .footer-bottom {
+        margin-top: 2vh;
+        padding-top: 2vh;
+    }
+
+    /* Show hamburger menu and hide regular nav */
+    .hamburger-menu {
+        display: flex;
+        position: absolute;
+        top: 2vh;
+        right: 2vh;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .nav.active {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: #000;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 2vh 0;
+    }
+
+    .nav.active a {
+        padding: 1vh 2vh;
+        text-align: center;
+    }
+}
+
+/* Additional adjustments for extra small screens */
+@media screen and (max-width: 480px) {
+    .logo {
+        font-size: 2.5vh;
+    }
+
+    .search-container input[type="text"] {
+        font-size: 1.8vh;
+    }
+
+    .icons a {
+        font-size: 2vh;
+    }
+
+    .contact h1 {
+        font-size: 2.5vh;
+    }
+
+    .footer-logo {
+        font-size: 2.5vh;
+    }
+
+    .footer-logo p {
+        font-size: 1.5vh;
+    }
+
+    .footer-links h3 {
+        font-size: 2vh;
+    }
+
+    .footer-links a {
+        font-size: 1.5vh;
+    }
+}

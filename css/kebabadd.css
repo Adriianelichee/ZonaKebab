@@ -1,0 +1,557 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Inter;
+    background-color: #e7e2d6;
+    height: 100%;
+}
+
+.container {
+    padding: 0;
+    min-height: 83vh;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5vh 3.75vh;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.logo-zona {
+    color: #fff;
+}
+
+.logo-kebab {
+    color: #00ff00;
+}
+
+.nav a {
+    color: #fff;
+    margin: 0 1.875vh;
+    text-decoration: none;
+    font-size: 2vh;
+}
+
+.nav a:hover {
+    color: #00ff00;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1.875vh;
+    padding: 0.625vh 1.25vh;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 0.625vh;
+    font-size: 2vh;
+    background: none;
+    color: #000;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    color: #00ff00;
+    margin-left: 2.5vh;
+    font-size: 2.5vh;
+    text-decoration: none;
+}
+
+.icons img {
+    width: 3.875vh;
+    height: auto;
+    vertical-align: middle;
+}
+
+.search-container button img {
+    width: 5vh;
+    height: auto;
+}
+
+.icons a:hover {
+    color: #fff;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 3.125vh;
+    height: 0.375vh;
+    background-color: #333;
+    margin: 0.625vh 0;
+    transition: 0.4s;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 1vh 2vh rgba(0,0,0,0.1);
+    padding: 1.25vh;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 0.625vh 1.25vh;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.secondary-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+    padding: 2.5vh 0;
+    border-top-left-radius: 0.5vh;
+    border-top-right-radius: 0.5vh;
+    position: relative;
+}
+
+.secondary-nav a {
+    text-decoration: none;
+}
+
+.secondary-link {
+    color: #fff;
+    margin: 0 2.5vh;
+    text-decoration: none;
+    font-size: 2.25vh;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.secondary-link:hover,
+.secondary-link.active {
+    color: #00ff00;
+}
+
+.secondary-link::after {
+    content: "";
+    position: absolute;
+    bottom: -0.625vh;
+    left: 0;
+    right: 0;
+    height: 0.25vh;
+    background-color: #00ff00;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.secondary-link:hover::after,
+.secondary-link.active::after {
+    transform: scaleX(1);
+}
+
+.sidebar {
+    width: 31.25vh;
+    flex-shrink: 0;
+    background-color: #d9d1c4;
+    padding: 2.5vh;
+    color: #333;
+}
+
+.sidebar h2 {
+    font-size: 2.5vh;
+    margin-bottom: 1.25vh;
+}
+
+.sidebar p {
+    font-size: 1.75vh;
+    color: #555;
+}
+
+.menu-item {
+    margin-top: 2.5vh;
+    padding: 1.25vh;
+    background-color: #fff;
+    border-radius: 1vh;
+    box-shadow: 0 0.25vh 0.5vh rgba(0, 0, 0, 0.1);
+}
+
+.menu-item.selected {
+    border: 0.25vh solid #000;
+}
+
+.menu-item i.icon {
+    font-size: 3vh;
+    margin-right: 1.25vh;
+}
+
+.menu-item span {
+    font-weight: bold;
+    display: block;
+}
+
+.menu-item p {
+    font-size: 1.5vh;
+    color: #666;
+}
+
+.main-content {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2.5vh;
+    overflow-y: auto;
+}
+
+.main-content > * {
+    flex: 1 1 100%;
+    margin: 1.25vh;
+}
+
+.main-content h1 {
+    font-size: 3vh;
+    margin-bottom: 2.5vh;
+    width: 100%;
+}
+
+.kebab-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5vh;
+}
+
+.kebab-form > * {
+    flex: 1 1 calc(33.33% - 2.5vh);
+    min-width: 37.5vh;
+}
+
+.kebab-form label {
+    font-weight: bold;
+    margin-bottom: 0.625vh;
+    display: block;
+}
+
+.kebab-form input[type="text"],
+.kebab-form textarea,
+.kebab-form select {
+    width: 100%;
+    padding: 1vh;
+    margin-bottom: 1.875vh;
+    border-radius: 0.625vh;
+    border: 0.125vh solid #ccc;
+}
+
+.kebab-form .photo-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    border: 0.125vh solid #ccc;
+    height: 25vh;
+    cursor: pointer;
+    margin-bottom: 1.875vh;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.kebab-form .photo-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.kebab-form .photo-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kebab-form .photo-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.kebab-form .photo-preview #photo-placeholder {
+    font-size: 2vh;
+    color: #666;
+}
+
+.kebab-form .add-button {
+    background-color: #000;
+    color: #fff;
+    padding: 1.25vh 2.5vh;
+    border: none;
+    border-radius: 0.625vh;
+    cursor: pointer;
+    font-size: 2vh;
+}
+
+.kebab-form .add-button:hover {
+    background-color: #555;
+}
+
+.ingredients, .ingredients-added {
+    flex: 1;
+    padding: 2.5vh;
+    background-color: #f4f4f4;
+    align-content: flex-start;
+}
+
+.ingredients-added {
+    box-shadow: -0.5vh 0 1vh rgba(0, 0, 0, 0.1);
+}
+
+.ingredients h2, .ingredients-added h2 {
+    font-size: 2.5vh;
+    margin-bottom: 1.25vh;
+    width: 100%;
+}
+
+#available-ingredients, .ingredients-added {
+    min-height: 12.5vh;
+    padding: 1.25vh;
+    border: 0.125vh solid #ccc;
+}
+
+.ingredient-item:hover {
+    background-color: #e0e0e0;
+}
+
+.ingredient-item {
+    display: flex;
+    align-items: center;
+    background-color: beige;
+    border-radius: 1.25vh;
+    box-shadow: 0 0.25vh 0.5vh rgba(0, 0, 0, 0.1);
+    padding: 0.625vh;
+    width: calc(33.33% - 1.25vh);
+    min-width: 25vh;
+    cursor: move;
+    margin-bottom: 1.25vh;
+}
+
+.ingredient-item:hover {
+    background-color: grey;
+}
+
+.ingredient-item img {
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    margin-right: 1.25vh;
+}
+
+.ingredient-item span {
+    flex: 1;
+    font-size: 1.75vh;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ingredient-item.dragging {
+    opacity: 0.5;
+}
+
+#available-ingredients,
+#added-ingredients {
+    min-height: 12.5vh;
+    padding: 1.25vh;
+    border: 0.125vh solid #ccc;
+    background-color: #f9f9f9;
+}
+
+#available-ingredients:empty,
+#added-ingredients:empty {
+    height: 12.5vh;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .header {
+        padding: 2vh;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 2.5vh;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 1vh;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-top: 1vh;
+    }
+
+    .icons {
+        width: 100%;
+        justify-content: center;
+        margin-top: 1vh;
+    }
+
+    .sidebar {
+        width: 100%;
+        order: 2;
+    }
+
+    .main-content {
+        order: 1;
+    }
+
+    .kebab-form > * {
+        flex: 1 1 100%;
+        min-width: 100%;
+    }
+
+    .kebab-form .photo-upload {
+        height: 20vh;
+    }
+
+    .ingredients, .ingredients-added {
+        width: 100%;
+        margin-bottom: 2vh;
+    }
+
+    .ingredient-item {
+        width: calc(50% - 1vh);
+        min-width: auto;
+    }
+
+    .secondary-nav {
+        flex-wrap: wrap;
+        padding: 1vh 0;
+    }
+
+    .secondary-link {
+        margin: 1vh 1.25vh;
+        font-size: 2vh;
+    }
+
+    .user-dropdown {
+        width: 100%;
+        left: 0;
+        right: auto;
+    }
+}
+
+/* Additional styles for even smaller screens */
+@media screen and (max-width: 480px) {
+    .header {
+        padding: 1.5vh;
+    }
+
+    .logo {
+        font-size: 2vh;
+    }
+
+    .search-container input[type="text"] {
+        font-size: 1.8vh;
+    }
+
+    .icons a {
+        font-size: 2vh;
+        margin-left: 1.5vh;
+    }
+
+    .icons img {
+        width: 3vh;
+    }
+
+    .kebab-form label {
+        font-size: 1.8vh;
+    }
+
+    .kebab-form input[type="text"],
+    .kebab-form textarea,
+    .kebab-form select {
+        font-size: 1.8vh;
+        padding: 0.8vh;
+    }
+
+    .kebab-form .add-button {
+        font-size: 1.8vh;
+        padding: 1vh 2vh;
+    }
+
+    .ingredient-item {
+        width: 100%;
+    }
+
+    .ingredient-item img {
+        width: 4vh;
+        height: 4vh;
+    }
+
+    .ingredient-item span {
+        font-size: 1.6vh;
+    }
+
+    .secondary-link {
+        font-size: 1.8vh;
+        margin: 0.8vh 1vh;
+    }
+}

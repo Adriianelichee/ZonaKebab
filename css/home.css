@@ -1,0 +1,569 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter;
+    background-color: #000;
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.22vh 3.33vh;
+    background-color: #000;
+}
+
+.logo {
+    font-size: 2.67vh;
+    font-weight: bold;
+}
+
+.logo-zona {
+    color: #fff;
+}
+
+.logo-kebab {
+    color: #00ff00;
+}
+
+.nav a {
+    color: #fff;
+    margin: 0 1.67vh;
+    text-decoration: none;
+    font-size: 1.78vh;
+}
+
+.nav a:hover {
+    color: #00ff00;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 1.67vh;
+    padding: 0.56vh 1.11vh;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 0.56vh;
+    font-size: 1.78vh;
+    background: none;
+    color: #000;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    font-size: 1.78vh;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icons a {
+    color: #00ff00;
+    margin-left: 2.22vh;
+    font-size: 2.22vh;
+    text-decoration: none;
+}
+
+.icons img {
+    width: 3.44vh;
+    height: auto;
+    vertical-align: middle;
+}
+
+.search-container button img {
+    width: 4.44vh;
+    height: auto;
+}
+
+.icons a:hover {
+    color: #fff;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 2.78vh;
+    height: 0.33vh;
+    background-color: #333;
+    margin: 0.56vh 0;
+    transition: 0.4s;
+}
+
+/* Estilos para el menú de usuario */
+.user-menu {
+    position: relative;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 0.89vh 1.78vh rgba(0,0,0,0.1);
+    padding: 1.11vh;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 0.56vh 1.11vh;
+    color: #333;
+    text-decoration: none;
+}
+
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.secondary-nav {
+    display: flex;
+    justify-content: center;
+    background-color: #111;
+    padding: 2.22vh 0;
+    border-top-left-radius: 0.44vh;
+    border-top-right-radius: 0.44vh;
+    position: relative;
+}
+
+.secondary-nav a {
+    text-decoration: none;
+}
+
+.secondary-link {
+    color: #fff;
+    margin: 0 2.22vh;
+    text-decoration: none;
+    font-size: 2vh;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.secondary-link:hover,
+.secondary-link.active {
+    color: #00ff00;
+}
+
+/* Estilo del enlace activo en la barra secundaria */
+.secondary-link::after {
+    content: "";
+    position: absolute;
+    bottom: -0.56vh;
+    left: 0;
+    right: 0;
+    height: 0.22vh;
+    background-color: #00ff00;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.secondary-link:hover::after,
+.secondary-link.active::after {
+    transform: scaleX(1);
+}
+
+#create-kebab {
+    position: relative;
+    height: 59.22vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 5.56vh;
+    color: #fff;
+    overflow: hidden; 
+}
+
+/* Fondo semitransparente */
+#create-kebab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url('/img/kebab.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 1;
+}
+
+#create-kebab > * {
+    position: relative;
+    z-index: 2;
+}
+
+.text-content {
+    max-width: 44.44vh;
+    padding: 6.67vh;
+    border-radius: 0.89vh;
+}
+
+.text-content h1 {
+    font-size: 3.56vh;
+    margin-bottom: 1.11vh;
+    color: #fff;
+}
+
+.text-content p {
+    font-size: 1.78vh;
+    color: #00ff00;
+    margin-bottom: 2.22vh;
+}
+
+.create-button {
+    padding: 1.11vh 2.22vh;
+    font-size: 1.78vh;
+    color: #fff;
+    background-color: #000;
+    border: 0.22vh solid #fff;
+    border-radius: 0.56vh;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.create-button:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.product-carousel {
+    display: flex;
+    gap: 2.22vh;
+    justify-content: center;
+    padding: 2.22vh;
+    background-color: #333;
+    height: 59.22vh;
+}
+
+.product-card {
+    background-color: grey;
+    border-radius: 0.89vh;
+    overflow: hidden;
+    width: 33.33vh;
+    height: 44.44vh;
+    box-shadow: 0 0.44vh 0.89vh rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Inter;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card img {
+    width: 100%;
+    height: 22.22vh;
+    object-fit: cover;
+    border-top-left-radius: 0.89vh;
+    border-top-right-radius: 0.89vh;
+}
+
+.product-info {
+    padding: 1.67vh;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.product-info h3 {
+    margin-top: 0;
+    color: black;
+    font-size: 2vh;
+}
+
+.description {
+    font-size: 1.56vh;
+    color: #666;
+    margin-bottom: 1.11vh;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.price {
+    font-size: 2.22vh;
+    color: greenyellow;
+    font-weight: bold;
+    margin-bottom: 1.11vh;
+}
+
+.delivery-info {
+    font-weight: bold;
+    font-size: 1.44vh;
+    color: white;
+    margin-bottom: 1.67vh;
+}
+
+.view-more-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    padding: 1.11vh 2.22vh;
+    font-size: 1.78vh;
+    border-radius: 0.56vh;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    align-self: center;
+}
+
+.view-more-btn:hover {
+    background-color: #00ff00;
+    color: #000;
+}
+
+.testimonial-section {
+    background-color: #f4f0eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 4.44vh 2.22vh;
+    font-family: Inter;
+    color: #333;
+}
+
+.testimonial-section h2 {
+    font-size: 2.67vh;
+    margin-bottom: 3.33vh;
+}
+
+.testimonial-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.22vh;
+    width: 100%;
+    max-width: 133.33vh;
+    margin: 0 auto;
+}
+
+.testimonial {
+    background-color: #333;
+    color: #f4f0eb;
+    padding: 2.22vh;
+    border-radius: 0.89vh;
+    box-shadow: 0 0.44vh 0.89vh rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-family: Inter;
+}
+
+.testimonial p {
+    font-size: 1.56vh;
+    line-height: 1.6;
+    margin-bottom: 1.11vh;
+}
+
+.testimonial span {
+    font-weight: bold;
+    font-size: 1.56vh;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 4.44vh 0;
+    font-family: Inter;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 133.33vh;
+    margin: 0 auto;
+    padding: 0 2.22vh;
+}
+
+.footer-logo {
+    font-size: 2.67vh;
+    font-weight: bold;
+}
+
+.footer-logo-zona {
+    color: white;
+}
+
+.footer-logo-kebab {
+    color: #00ff00;
+}
+
+.footer-logo p {
+    font-size: 1.56vh;
+    color: white;
+    width: 44.44vh;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links h3 {
+    margin-bottom: 1.67vh;
+    font-size: 2vh;
+    color: white;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-bottom: 1.11vh;
+    font-size: 1.56vh;
+}
+
+.footer-links a:hover {
+    color: #00ff00;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3.33vh;
+    padding-top: 2.22vh;
+    border-top: 0.11vh solid #ddd;
+    font-size: 1.33vh;
+}
+
+@media screen and (max-width: 768px) {
+    /* Header and Navigation */
+    .header {
+        flex-wrap: wrap;
+        padding: 2vh;
+    }
+
+    .logo {
+        flex-basis: 100%;
+        text-align: center;
+        margin-bottom: 2vh;
+    }
+
+    .nav {
+        display: none;
+        width: 100%;
+        order: 3;
+    }
+
+    .nav.active {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav a {
+        margin: 1vh 0;
+        font-size: 2vh;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        order: 1;
+        margin-left: auto;
+    }
+
+    .search-container {
+        order: 2;
+        width: 100%;
+        margin-top: 2vh;
+    }
+
+    .icons {
+        order: 4;
+        width: 100%;
+        justify-content: center;
+        margin-top: 2vh;
+    }
+
+    /* Secondary Navigation */
+    .secondary-nav {
+        flex-wrap: wrap;
+        padding: 1vh 0;
+    }
+
+    .secondary-link {
+        margin: 1vh 1vh;
+        font-size: 1.8vh;
+    }
+
+    /* Create Kebab Section */
+    #create-kebab {
+        height: auto;
+        padding: 4vh 2vh;
+    }
+
+    .text-content {
+        max-width: 100%;
+        padding: 3vh;
+    }
+
+    .text-content h1 {
+        font-size: 3vh;
+    }
+
+    .text-content p {
+        font-size: 1.6vh;
+    }
+
+    .create-button {
+        font-size: 1.6vh;
+    }
+
+    /* Product Carousel */
+    .product-carousel {
+        flex-direction: column;
+        height: auto;
+        padding: 2vh;
+    }
+
+    .product-card {
+        width: 100%;
+        height: auto;
+        margin-bottom: 2vh;
+    }
+
+    .product-card img {
+        height: 20vh;
+    }
+
+    /* Testimonial Section */
+    .testimonial-container {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonial {
+        padding: 2vh;
+    }
+
+    .testimonial img {
+        width: 8vh;
+        height: 8vh;
+    }
+}

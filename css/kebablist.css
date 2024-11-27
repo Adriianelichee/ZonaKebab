@@ -1,0 +1,73 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-content {
+    background-color: white;
+    padding: 2.5vh;
+    border-radius: 0.625vh;
+    width: 80%;
+    max-width: 75vh;
+}
+
+.kebab-list-all {
+    max-height: 37.5vh;
+    overflow-y: auto;
+}
+
+.kebab-item {
+    padding: 1.25vh;
+    border-bottom: 0.125vh solid #ddd;
+    cursor: pointer;
+}
+
+.kebab-item:hover {
+    background-color: #f0f0f0;
+}
+
+.close-button {
+    display: inline-block;
+    padding: 1.25vh 2.5vh;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.625vh;
+    margin-top: 2.5vh;
+}
+
+.close-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+    .overlay-content {
+        width: 95%;
+        padding: 2vh;
+    }
+
+    .kebab-list-all {
+        max-height: 50vh;
+    }
+
+    .kebab-item {
+        padding: 1.5vh;
+    }
+
+    .close-button {
+        padding: 1.5vh 3vh;
+        font-size: 2.5vh;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
